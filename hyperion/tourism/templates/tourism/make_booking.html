@@ -1,0 +1,33 @@
+{% extends "tourism/header.html" %}
+{% block content %}
+{% load static %}
+<div class="card">
+    <div class="row no-gutters">
+        <div class="col-sm-5">
+            {% with 'tour-uploads/'|add:activity.image as image_static %}
+              <img class="card-img" src="{% static image_static %}" alt="{{ activity.title }}">
+            {% endwith %}
+        </div>
+        <div class="col-sm-7 h-100">
+            <div class="card-body d-flex flex-column h-100">
+                <h5 class="card-title">{{ activity.title }}</h5>
+                <p class="card-text">{{ activity.description|safe|linebreaks }}</p>
+                <div class="flex-grow-1"></div>
+                {% if error_message %}
+                    <p><strong>{{error_message}}</strong></p>
+                {% endif %}
+                <p class="card-text">£{{ activity.price }} per person</p>
+                <form class="d-flex w-100 justify-content-between" action="{% url 'tourism:booking-confirm' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="activity" value="{{ activity.id }}" />
+                    <div class="d-flex gap-1 align-items-center">
+                    <label for="number_of_people">Number of people to book for (1-12)</label>
+                    <input type="text" name="number_of_people" id="number_of_people" />
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Book" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

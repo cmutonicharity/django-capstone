@@ -1,0 +1,19 @@
+<h1>Login as User</h1>
+
+<form action="{% url 'user_auth:authenticate_user' %}" method="post">
+    <input type="hidden" name="redirect" value="{{ redirect }}" />
+
+    {% csrf_token %}
+    <label>Username</label>
+    <input type="text" name="username" placeholder="User" required />
+    <br /><br />
+
+    <label>Password</label>
+    <input type="password" name="password" required />
+    <br /><br />
+
+    <a href="{% url 'user_auth:register' %}?redirect={{ redirect }}">Not registered? Create an account here!</a>
+    <br /><br />
+
+    <input type="submit" value="Login" />
+</form>

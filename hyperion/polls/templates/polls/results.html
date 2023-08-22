@@ -1,0 +1,22 @@
+{% extends "polls/header.html" %}
+{% block content %}
+<div class="d-flex flex-column">
+    <h1> {{ question.question_text }}</h1>
+    <ul class="list-group list-group-flush">
+        {% for choice in question.choice_set.all %}
+        <li class="list-group-item">
+            <span class="badge bg-primary">
+                <span class="badge bg-light text-dark">{{choice.votes}}</span>
+                vote{{choice.votes|pluralize}}
+            </span>
+            {{choice.choice_text}}
+        </li>
+        {% endfor %}
+    </ul>
+    <div class="d-flex justify-content-end">
+        <a href="{% url 'polls:detail' question.id %}" class="btn btn-primary">
+            Vote again?
+        </a>
+    </div>
+</div>
+{% endblock %}

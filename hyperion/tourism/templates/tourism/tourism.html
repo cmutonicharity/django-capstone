@@ -1,0 +1,33 @@
+{% extends "tourism/header.html" %}
+{% block content %}
+{% load static %}
+<!-- Disclaimer: This content was auto-generated. -->
+<!-- I am trying to show my software development skills, not content writing. -->
+<div>
+<h1>Explore the Heart of Africa - Discover Rwanda with Charity's Tours</h1>
+    <p>Welcome to Charity's Tours, your gateway to the enchanting landscapes, vibrant culture, and unparalleled wildlife of Rwanda. Whether you're an adventurer, a wildlife enthusiast, or someone looking to immerse in the rich traditions of Africa, our guided tours offer an unforgettable experience tailored just for you.</p>
+    <h3>Why Choose Us?</h3>
+    <ul>
+        <li><strong>Expert Guides:</strong> Our local guides are passionate about their homeland and are eager to share their knowledge and love for Rwanda.</li>
+        <li><strong>Customized Tours:</strong> From the bustling streets of Kigali to the serene shores of Lake Kivu, we offer tours that fit every interest and budget.</li>
+        <li><strong>Sustainable Travel:</strong> We believe in responsible tourism and contribute to local communities, ensuring that our tours leave a positive impact.</li>
+    </ul>
+    <h3>Our Guided Tours</h3>
+<div class="d-flex flex-wrap gap-3">
+    {% for activity in object_list %}
+    <div class="card" style="width: 18rem;">
+      {% with 'tour-uploads/'|add:activity.image as image_static %}
+        <img class="card-img-top" src="{% static image_static %}" alt="Card image cap">
+      {% endwith %}
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ activity.title }}</h5>
+        <p class="card-text">{{activity.description|safe|linebreaks}}</p>
+          <div class="flex-grow-1"></div>
+        <a href="{% url 'tourism:make-booking' activity.id %}" class="btn btn-primary">Book now</a>
+      </div>
+    </div>
+
+    {% endfor %}
+</div>
+</div>
+{% endblock %}
