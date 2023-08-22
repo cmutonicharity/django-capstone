@@ -53,4 +53,9 @@ def view_booking(request, booking_id):
 
 
 def history(request):
+    """
+    Display history about Rwanda for users interested in visiting.
+    :param request: the HTTP request. Does not require authentication.
+    :return: renders the history page.
+    """
     return render(request, "tourism/history.html")
