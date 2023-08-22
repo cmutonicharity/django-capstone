@@ -35,6 +35,16 @@ def booking_confirm(request):
 
 @login_required(redirect_field_name="redirect", login_url=reverse_lazy('user_auth:login'))
 def view_booking(request, booking_id):
+    """
+    View the details of a booking.
+
+    Will only display the details to the user that created the booking. Other users will
+    receive a 404 Not Found error. This is advisable for security reasons rather than returning
+    a more meaningful response as it reduces the attack surface.
+    :param request: the HTTP request with an authenticated `user`
+    :param booking_id: the id of the booking to view
+    :return: renders the booking confirmation if found and created by the requester, otherwise 404 Not Found
+    """
     user = request.user
     booking = get_object_or_404(Booking, pk=booking_id)
     if booking.user.id != user.id:
