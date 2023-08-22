@@ -26,6 +26,9 @@ class Activity(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        app_label = 'tourism'
+
 
 class Booking(models.Model):
     """
@@ -53,3 +56,6 @@ class Booking(models.Model):
         """
         unit_cost = self.activity.price
         return unit_cost * self.number_of_people
+
+    class Meta:
+        app_label = 'tourism'
