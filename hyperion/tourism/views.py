@@ -9,6 +9,14 @@ from .models import Activity, Booking
 # Create your views here.
 @login_required(redirect_field_name="redirect", login_url=reverse_lazy('user_auth:login'))
 def booking_confirm(request):
+    """
+    Endpoint for creating a new booking of a guided tour.
+
+    Expects to receive an HTTP POST `request`. Creates a new Booking if the passed details are correct.
+
+    :param request: POST request with `activity` and `number_of_people` parameters.
+    :return: Redirect to the created booking if successful, otherwise renders the form with the `error_message`
+    """
     user = request.user
     activity_id = request.POST['activity']
     number_of_people = request.POST['number_of_people']
